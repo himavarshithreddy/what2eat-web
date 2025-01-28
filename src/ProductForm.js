@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { db, addDoc, collection, storage} from './firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { Link } from 'react-router-dom'; 
 import './App.css';
 
 const ProductForm = () => {
@@ -159,6 +160,9 @@ const ProductForm = () => {
 
   return (
     <div className="App">
+      <Link to="/health-score" style={buttonStyle}>
+        Test Health Score
+      </Link>
       <h1>Add Product</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -280,5 +284,15 @@ const ProductForm = () => {
     </div>
   );
 };
-
+const buttonStyle = {
+  position: 'absolute',
+  top: '20px',
+  right: '20px',
+  padding: '10px 20px',
+  backgroundColor: '#4CAF50',
+  color: 'white',
+  border: 'none',
+  borderRadius: '5px',
+  textDecoration: 'none',
+};
 export default ProductForm;
