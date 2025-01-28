@@ -1,15 +1,19 @@
-import React from "react";
-import ProductForm from "./ProductForm";
+
+
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProductForm from './ProductForm';
+import HealthScore from './HealthScore';
 import './App.css';
-
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>What2Eat - Product Entry</h1>
-      <ProductForm />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ProductForm />} />
+        <Route path="/health-score" element={<HealthScore />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

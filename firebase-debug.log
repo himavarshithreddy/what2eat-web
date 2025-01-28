@@ -1,0 +1,62 @@
+[debug] [2025-01-28T19:56:44.501Z] ----------------------------------------------------------------------
+[debug] [2025-01-28T19:56:44.504Z] Command:       /opt/homebrew/Cellar/node/23.6.1/bin/node /opt/homebrew/bin/firebase deploy
+[debug] [2025-01-28T19:56:44.504Z] CLI Version:   13.29.2
+[debug] [2025-01-28T19:56:44.504Z] Platform:      darwin
+[debug] [2025-01-28T19:56:44.504Z] Node Version:  v23.6.1
+[debug] [2025-01-28T19:56:44.504Z] Time:          Wed Jan 29 2025 01:26:44 GMT+0530 (India Standard Time)
+[debug] [2025-01-28T19:56:44.504Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-28T19:56:44.572Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-28T19:56:44.572Z] > authorizing via signed-in user (himavarshithreddy@gmail.com)
+[debug] [2025-01-28T19:56:44.572Z] [iam] checking project what2eat-cb440 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-01-28T19:56:44.573Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:44.573Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:44.573Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/what2eat-cb440:testIamPermissions [none]
+[debug] [2025-01-28T19:56:44.573Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/what2eat-cb440:testIamPermissions x-goog-quota-user=projects/what2eat-cb440
+[debug] [2025-01-28T19:56:44.573Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/what2eat-cb440:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-01-28T19:56:46.194Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/what2eat-cb440:testIamPermissions 200
+[debug] [2025-01-28T19:56:46.195Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/what2eat-cb440:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-01-28T19:56:46.195Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:46.195Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:46.195Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/what2eat-cb440 [none]
+[debug] [2025-01-28T19:56:46.787Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/what2eat-cb440 200
+[debug] [2025-01-28T19:56:46.787Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/what2eat-cb440 {"projectId":"what2eat-cb440","projectNumber":"745594998609","displayName":"What2Eat","name":"projects/what2eat-cb440","resources":{"hostingSite":"what2eat-cb440"},"state":"ACTIVE","etag":"1_2a3663b0-a77b-412a-bad8-e461a09d889d"}
+[info] 
+[info] === Deploying to 'what2eat-cb440'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2025-01-28T19:56:46.792Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:46.792Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:46.792Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/what2eat-cb440/versions [none]
+[debug] [2025-01-28T19:56:46.792Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/what2eat-cb440/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2025-01-28T19:56:48.047Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/what2eat-cb440/versions 200
+[debug] [2025-01-28T19:56:48.047Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/what2eat-cb440/versions {"name":"projects/745594998609/sites/what2eat-cb440/versions/cc59ff8a3b769d93","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[what2eat-cb440]: beginning deploy... 
+[info] i  hosting[what2eat-cb440]: found 12 files in build 
+[debug] [2025-01-28T19:56:48.064Z] [hosting] uploading with 200 concurrency
+[debug] [2025-01-28T19:56:48.259Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.259Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.260Z] [hosting] hash cache [YnVpbGQ] stored for 12 files
+[debug] [2025-01-28T19:56:48.260Z] [hosting][hash queue][FINAL] {"max":190,"min":5,"avg":23,"active":0,"complete":12,"success":12,"errored":0,"retried":0,"total":12,"elapsed":193}
+[debug] [2025-01-28T19:56:48.260Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/745594998609/sites/what2eat-cb440/versions/cc59ff8a3b769d93:populateFiles [none]
+[debug] [2025-01-28T19:56:48.260Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/745594998609/sites/what2eat-cb440/versions/cc59ff8a3b769d93:populateFiles {"files":{"/robots.txt":"391d14b3c2f8c9143a27a28c7399585142228d4d1bdbe2c87ac946de411fa9a2","/manifest.json":"341d52628782f8ac9290bbfc43298afccb47b7cbfcee146ae30cf0f46bc30900","/index.html":"cd2ea6c718f61357c41574a6608f05798835ac4c0b17e3791975f5317e983ee6","/asset-manifest.json":"3485368c410c8288bfec109a1d82c7f62ab934b7f74a3e67a4756d04b90b6c84","/favicon.ico":"b72f7455f00e4e58792d2bca892abb068e2213838c0316d6b7a0d6d16acd1955","/logo192.png":"caff018b7f1e8fd481eb1c50d75b0ef236bcd5078b1d15c8bb348453fee30293","/static/js/main.feb28e70.js.LICENSE.txt":"f22d7df631e081ec0d662cf1997c8d2f43ebaa8538c37db5aead96a503c61c4f","/logo512.png":"191fc21360b4ccfb1cda11a1efb97f489ed22672ca83f4064316802bbfdd750e","/static/css/main.2b2272a6.css":"1c16d1177f92f8aa973741d0e04de4d59e6e63ae746a6a5b97b4f969de21e145","/static/css/main.2b2272a6.css.map":"9ed22eccf233a4d7331af3b04e6d8bec27657222ed37d673dc66b772e97bc4db","/static/js/main.feb28e70.js":"78f3d64396400e3f9510c33499024c3bdea6d9baf43a3774e10065654b50eb34","/static/js/main.feb28e70.js.map":"b6beb36bcff222d4329168c4f7a8be9bf8efb2db0a90d25bc20d1d68b3f78466"}}
+[debug] [2025-01-28T19:56:48.706Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/745594998609/sites/what2eat-cb440/versions/cc59ff8a3b769d93:populateFiles 200
+[debug] [2025-01-28T19:56:48.706Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/745594998609/sites/what2eat-cb440/versions/cc59ff8a3b769d93:populateFiles {"uploadRequiredHashes":["cd2ea6c718f61357c41574a6608f05798835ac4c0b17e3791975f5317e983ee6","b6beb36bcff222d4329168c4f7a8be9bf8efb2db0a90d25bc20d1d68b3f78466","3485368c410c8288bfec109a1d82c7f62ab934b7f74a3e67a4756d04b90b6c84","78f3d64396400e3f9510c33499024c3bdea6d9baf43a3774e10065654b50eb34"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files"}
+[debug] [2025-01-28T19:56:48.707Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.708Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.708Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.708Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.708Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.708Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.709Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.709Z] Checked if tokens are valid: true, expires at: 1738096186250
+[debug] [2025-01-28T19:56:48.709Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/cd2ea6c718f61357c41574a6608f05798835ac4c0b17e3791975f5317e983ee6 [none]
+[debug] [2025-01-28T19:56:48.709Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/cd2ea6c718f61357c41574a6608f05798835ac4c0b17e3791975f5317e983ee6 [stream]
+[debug] [2025-01-28T19:56:48.711Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/b6beb36bcff222d4329168c4f7a8be9bf8efb2db0a90d25bc20d1d68b3f78466 [none]
+[debug] [2025-01-28T19:56:48.711Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/b6beb36bcff222d4329168c4f7a8be9bf8efb2db0a90d25bc20d1d68b3f78466 [stream]
+[debug] [2025-01-28T19:56:48.714Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/3485368c410c8288bfec109a1d82c7f62ab934b7f74a3e67a4756d04b90b6c84 [none]
+[debug] [2025-01-28T19:56:48.715Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/3485368c410c8288bfec109a1d82c7f62ab934b7f74a3e67a4756d04b90b6c84 [stream]
+[debug] [2025-01-28T19:56:48.716Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/78f3d64396400e3f9510c33499024c3bdea6d9baf43a3774e10065654b50eb34 [none]
+[debug] [2025-01-28T19:56:48.716Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/what2eat-cb440/versions/cc59ff8a3b769d93/files/78f3d64396400e3f9510c33499024c3bdea6d9baf43a3774e10065654b50eb34 [stream]
+[debug] [2025-01-28T19:56:48.718Z] [hosting][populate queue][FINAL] {"max":450,"min":450,"avg":450,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":459}
+[debug] [2025-01-28T19:56:48.718Z] [hosting] uploads queued: 4

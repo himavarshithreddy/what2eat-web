@@ -102,3 +102,24 @@ textarea {
     font-size: 0.9rem;
   }
 }
+
+.health-score-page {
+  margin: 20px;
+}
+
+.health-score-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.health-score-page form div {
+  margin-bottom: 10px;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #28a745;
+}
+

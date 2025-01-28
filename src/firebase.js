@@ -2,8 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFunctions, httpsCallable } from 'firebase/functions';
+import axios from 'axios';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,8 +18,27 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Get Firestore and Storage
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// Export Firestore functions
-export { db, addDoc, collection, storage };
+// Get Firebase Functions
+const functions = getFunctions(app);
+
+// Export Firestore functions, storage, and the callable function
+export { db, addDoc, collection, storage, app };
+
+
+const calculateNutriScore = async (data) => {
+  try {
+    const response = await axios.post(
+      'https://us-central1-what2eat-cb440.cloudfunctions.net/calculateHealthScore', 
+      data
+    );
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export { calculateNutriScore };
