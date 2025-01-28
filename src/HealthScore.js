@@ -45,7 +45,7 @@ const HealthScore = () => {
     // Call the Firebase function
     try {
       const result = await calculateNutriScore(data);
-      setHealthScore(result.healthScore);
+      setHealthScore(result.data.healthScore);
     } catch (err) {
       setError('Error calculating Nutri-Score: ' + err.message);
     }
