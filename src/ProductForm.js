@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { db, addDoc, collection, storage} from './firebase';
+import { db, addDoc, collection, storage } from './firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import './App.css';
 
 const ProductForm = () => {
@@ -9,6 +9,7 @@ const ProductForm = () => {
   const [name, setName] = useState('');
   const [imageURL, setImageURL] = useState('');
   const [ingredients, setIngredients] = useState('');
+  const [artificialIngredients, setArtificialIngredients] = useState('');
   const [nutritionInfo, setNutritionInfo] = useState({
     energy: '',
     fats: '',
@@ -73,7 +74,7 @@ const ProductForm = () => {
       case 'float':
         return parseFloat(value);
       case 'array':
-        return value.split(',').map((v) => v.trim());
+        return value.split(';').map((v) => v.trim()); // Changed to semicolon
       case 'string':
       default:
         return value;
@@ -110,7 +111,8 @@ const ProductForm = () => {
       barcode,
       name,
       imageURL: imageUrl,
-      ingredients: ingredients.split(',').map((ingredient) => ingredient.trim()),
+      ingredients: ingredients.split(';').map((ingredient) => ingredient.trim()), // Changed to semicolon
+      artificialIngredients: artificialIngredients.split(';').map((ingredient) => ingredient.trim()), // Already using semicolon
       nutritionInfo: {
         ...nutritionInfo,
         ...customNutritionData // Add custom fields to nutritionInfo
@@ -118,8 +120,8 @@ const ProductForm = () => {
       userRating: parseFloat(userRating),
       numberOfRatings: parseInt(numberOfRatings),
       categoryId,
-      pros: pros.split(',').map((pro) => pro.trim()),
-      cons: cons.split(',').map((con) => con.trim()),
+      pros: pros.split(';').map((pro) => pro.trim()), // Changed to semicolon
+      cons: cons.split(';').map((con) => con.trim()), // Changed to semicolon
       healthScore: parseInt(healthScore),
       ...customFieldsData // Add custom fields to the product object
     };
@@ -132,6 +134,7 @@ const ProductForm = () => {
       setName('');
       setImageURL('');
       setIngredients('');
+      setArtificialIngredients('');
       setNutritionInfo({
         energy: '',
         fats: '',
@@ -186,10 +189,16 @@ const ProductForm = () => {
         />
         <input
           type="text"
-          placeholder="Ingredients (comma separated)"
+          placeholder="Ingredients (semicolon separated)"
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
           required
+        />
+        <input
+          type="text"
+          placeholder="Artificial Ingredients (semicolon separated)"
+          value={artificialIngredients}
+          onChange={(e) => setArtificialIngredients(e.target.value)}
         />
         {Object.keys(nutritionInfo).map((key) => (
           <input
@@ -222,13 +231,13 @@ const ProductForm = () => {
         />
         <input
           type="text"
-          placeholder="Pros (comma separated)"
+          placeholder="Pros (semicolon separated)"
           value={pros}
           onChange={(e) => setPros(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Cons (comma separated)"
+          placeholder="Cons (semicolon separated)"
           value={cons}
           onChange={(e) => setCons(e.target.value)}
         />
@@ -284,6 +293,7 @@ const ProductForm = () => {
     </div>
   );
 };
+
 const buttonStyle = {
   position: 'absolute',
   top: '20px',
@@ -295,4 +305,5 @@ const buttonStyle = {
   borderRadius: '5px',
   textDecoration: 'none',
 };
+
 export default ProductForm;
