@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './App.css';
 
 const ProductForm = () => {
-  const [barcode, setBarcode] = useState('');
+  const [barcodes, setBarcodes] = useState('');
   const [name, setName] = useState('');
   const [imageURL, setImageURL] = useState('');
   const [ingredients, setIngredients] = useState('');
@@ -13,13 +13,13 @@ const ProductForm = () => {
   const [nutritionInfo, setNutritionInfo] = useState({
     energy: '',
     fats: '',
-    sugars: '',
+    TotalSugars: '',
     protein: '',
     sodium: '',
     carbohydrates: '',
-    vitaminB: '',
+    vitaminB1: '',
     iron: '',
-    fiber: '',
+    dietaryfiber: '',
     fruitsVegetablesNuts: ''
   });
   const [userRating, setUserRating] = useState('');
@@ -74,7 +74,7 @@ const ProductForm = () => {
       case 'float':
         return parseFloat(value);
       case 'array':
-        return value.split(';').map((v) => v.trim()); // Changed to semicolon
+        return value.split(';').map((v) => v.trim());
       case 'string':
       default:
         return value;
@@ -93,6 +93,9 @@ const ProductForm = () => {
       imageUrl = await getDownloadURL(storageRef);
     }
 
+    // Parse barcodes into an array
+    const parsedBarcodes = barcodes.split(';').map((barcode) => barcode.trim()).filter(Boolean);
+
     // Add custom fields to the product object
     const customFieldsData = {};
     customFields.forEach((field) => {
@@ -108,29 +111,29 @@ const ProductForm = () => {
     });
 
     const productData = {
-      barcode,
+      barcodes: parsedBarcodes,
       name,
       imageURL: imageUrl,
-      ingredients: ingredients.split(';').map((ingredient) => ingredient.trim()), // Changed to semicolon
-      artificialIngredients: artificialIngredients.split(';').map((ingredient) => ingredient.trim()), // Already using semicolon
+      ingredients: ingredients.split(';').map((ingredient) => ingredient.trim()),
+      artificialIngredients: artificialIngredients.split(';').map((ingredient) => ingredient.trim()),
       nutritionInfo: {
         ...nutritionInfo,
-        ...customNutritionData // Add custom fields to nutritionInfo
+        ...customNutritionData
       },
       userRating: parseFloat(userRating),
       numberOfRatings: parseInt(numberOfRatings),
       categoryId,
-      pros: pros.split(';').map((pro) => pro.trim()), // Changed to semicolon
-      cons: cons.split(';').map((con) => con.trim()), // Changed to semicolon
+      pros: pros.split(';').map((pro) => pro.trim()),
+      cons: cons.split(';').map((con) => con.trim()),
       healthScore: parseInt(healthScore),
-      ...customFieldsData // Add custom fields to the product object
+      ...customFieldsData
     };
 
     try {
       const docRef = await addDoc(collection(db, 'products'), productData);
       alert('Product added successfully!');
       // Clear the form after submission
-      setBarcode('');
+      setBarcodes('');
       setName('');
       setImageURL('');
       setIngredients('');
@@ -138,13 +141,13 @@ const ProductForm = () => {
       setNutritionInfo({
         energy: '',
         fats: '',
-        sugars: '',
+        TotalSugars: '',
         protein: '',
         sodium: '',
         carbohydrates: '',
-        vitaminB: '',
+        vitaminB1: '',
         iron: '',
-        fiber: '',
+        dietaryfiber: '',
         fruitsVegetablesNuts: ''
       });
       setUserRating('');
@@ -170,9 +173,9 @@ const ProductForm = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Barcode"
-          value={barcode}
-          onChange={(e) => setBarcode(e.target.value)}
+          placeholder="Barcodes (semicolon separated)"
+          value={barcodes}
+          onChange={(e) => setBarcodes(e.target.value)}
           required
         />
         <input
