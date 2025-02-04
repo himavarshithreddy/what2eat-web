@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { db, addDoc, collection } from './firebase';
+import { db, setDoc, doc } from './firebase'; // Import setDoc and doc
 
 const Json = () => {
   const [jsonFile, setJsonFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Handle JSON file selection
   const handleJsonChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
+    if (file && file.type === "application/json") {
       setJsonFile(file);
+    } else {
+      alert("Please select a valid JSON file.");
+      setJsonFile(null);
     }
   };
 
@@ -18,6 +22,8 @@ const Json = () => {
       alert("Please select a JSON file first!");
       return;
     }
+
+    setLoading(true);
 
     const reader = new FileReader();
     reader.onload = async (event) => {
@@ -29,17 +35,22 @@ const Json = () => {
           return;
         }
 
-        const collectionRef = collection(db, "ingredients");
-
         for (const item of jsonData) {
-          await addDoc(collectionRef, item);
+          // Create a document ID from Ingredientname
+          const docId = item.IngredientName.replace(/\s+/g, '').toLowerCase(); // Trim spaces and lowercase
+          const docRef = doc(db, "ingredients", docId); // Reference to the document with custom ID
+
+          // Set the document with the custom ID
+          await setDoc(docRef, item);
         }
 
         alert("JSON data uploaded successfully to Firestore!");
         setJsonFile(null);
       } catch (error) {
         console.error("Error uploading JSON:", error);
-        alert("Invalid JSON format!");
+        alert("Invalid JSON format or Firestore error!");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -50,7 +61,10 @@ const Json = () => {
     <div className="App">
       <h1>Upload JSON to Firestore</h1>
       <input type="file" accept=".json" onChange={handleJsonChange} />
-      <button onClick={handleJsonUpload}>Upload JSON</button>
+      <button onClick={handleJsonUpload} disabled={loading}>
+        {loading ? "Uploading..." : "Upload JSON"}
+      </button>
+      {jsonFile && <p>Selected file: {jsonFile.name}</p>}
     </div>
   );
 };

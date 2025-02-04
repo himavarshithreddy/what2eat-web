@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import axios from 'axios';
@@ -26,7 +26,7 @@ const storage = getStorage(app);
 const functions = getFunctions(app);
 
 // Export Firestore functions, storage, and the callable function
-export { db, addDoc, collection, storage, app };
+export { db, addDoc, collection, storage, app,setDoc, doc };
 
 
 const calculateNutriScore = async (data) => {
