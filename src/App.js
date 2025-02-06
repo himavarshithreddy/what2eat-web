@@ -7,6 +7,7 @@ import HealthScore from './HealthScore';
 import Json from './Json';
 import UpdateBarcodes from './updatefiled';
 import DownloadCollection from './download';
+import ProductProcessor from './updatehealthscore';
 import './App.css';
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/json" element={<Json />} />
         <Route path="/update" element={<UpdateBarcodes />} />
         <Route path="/download" element={<DownloadCollection />} />
+        <Route path="/updatehealthscore" element={<ProductProcessor />} />
       </Routes>
     </Router>
   );
