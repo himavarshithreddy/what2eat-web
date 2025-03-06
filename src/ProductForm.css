@@ -1,0 +1,129 @@
+.form-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  .nutrient-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nutrient-inputs {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .nutrient-inputs input {
+    flex: 1;
+  }
+  
+  .nutrient-inputs select {
+    width: 100px;
+  }
+  
+  .section-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+  }
+  
+  .custom-field-inputs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .custom-field-inputs input,
+  .custom-field-inputs select {
+    flex: 1;
+  }
+  
+  .custom-field-inputs button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .custom-field-inputs button:hover {
+    background-color: #45a049;
+  }
+  
+  .submit-btn {
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .test-health-score-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .test-health-score-btn:hover {
+    background-color: #45a049;
+  }
