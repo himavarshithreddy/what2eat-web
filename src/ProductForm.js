@@ -7,7 +7,6 @@ import './ProductForm.css'; // We'll create this CSS file
 const ProductForm = () => {
   const [barcodes, setBarcodes] = useState('');
   const [name, setName] = useState('');
-  const [imageURL, setImageURL] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [artificialIngredients, setArtificialIngredients] = useState('');
   const [nutritionInfo, setNutritionInfo] = useState({
@@ -87,33 +86,33 @@ const ProductForm = () => {
   // Unit options for each nutrient
   const unitOptions = {
     energy: ['kcal', 'kJ'],
-    protein: ['g', 'mg','mcg'],
-    totalFat: ['g', 'mg','mcg'],
-    saturatedFat: ['g', 'mg','mcg'],
-    carbohydrates: ['g', 'mg','mcg'],
-    fiber: ['g', 'mg','mcg'],
-    sugars: ['g', 'mg','mcg'],
-    calcium: ['mg', 'g','mcg'],
-    magnesium: ['mg', 'g','mcg'],
-    iron: ['mg', 'g','mcg'],
-    zinc: ['mg', 'g','mcg'],
-    iodine: ['mcg', 'mg','g'],
-    sodium: ['mg', 'g','mcg'],
-    potassium: ['mg', 'g','mcg'],
-    phosphorus: ['mg', 'g','mcg'],
-    copper: ['mg', 'g','mcg'],
-    selenium: ['mcg', 'mg','g'],
-    vitaminA: ['mcg', 'mg','g'],
-    vitaminC: ['mg', 'g','mcg'],
-    vitaminD: ['mcg', 'mg','g'],
-    vitaminE: ['mg', 'g','mcg'],
-    thiamine: ['mg', 'mcg','g'],
-    riboflavin: ['mg', 'mcg','g'],
-    niacin: ['mg', 'mcg','g'],
-    vitaminB6: ['mg', 'mcg','g'],
-    folate: ['mcg', 'mg','g'],
-    vitaminB12: ['mcg', 'mg','g'],
-    fruitsVegetablesNuts: ['%','mcg', 'mg','g']
+    protein: ['g', 'mg', 'mcg'],
+    totalFat: ['g', 'mg', 'mcg'],
+    saturatedFat: ['g', 'mg', 'mcg'],
+    carbohydrates: ['g', 'mg', 'mcg'],
+    fiber: ['g', 'mg', 'mcg'],
+    sugars: ['g', 'mg', 'mcg'],
+    calcium: ['mg', 'g', 'mcg'],
+    magnesium: ['mg', 'g', 'mcg'],
+    iron: ['mg', 'g', 'mcg'],
+    zinc: ['mg', 'g', 'mcg'],
+    iodine: ['mcg', 'mg', 'g'],
+    sodium: ['mg', 'g', 'mcg'],
+    potassium: ['mg', 'g', 'mcg'],
+    phosphorus: ['mg', 'g', 'mcg'],
+    copper: ['mg', 'g', 'mcg'],
+    selenium: ['mcg', 'mg', 'g'],
+    vitaminA: ['mcg', 'mg', 'g'],
+    vitaminC: ['mg', 'g', 'mcg'],
+    vitaminD: ['mcg', 'mg', 'g'],
+    vitaminE: ['mg', 'g', 'mcg'],
+    thiamine: ['mg', 'mcg', 'g'],
+    riboflavin: ['mg', 'mcg', 'g'],
+    niacin: ['mg', 'mcg', 'g'],
+    vitaminB6: ['mg', 'mcg', 'g'],
+    folate: ['mcg', 'mg', 'g'],
+    vitaminB12: ['mcg', 'mg', 'g'],
+    fruitsVegetablesNuts: ['%', 'mcg', 'mg', 'g']
   };
 
   // Handle image upload
@@ -136,7 +135,7 @@ const ProductForm = () => {
     }
   };
 
-  // Handle adding new custom fields to nutritionInfo
+  // Handle adding new custom nutrition fields
   const handleAddCustomNutritionField = () => {
     if (customFieldName && customFieldType) {
       setCustomNutritionFields([
@@ -163,11 +162,46 @@ const ProductForm = () => {
     }
   };
 
+  // Function to calculate health score via external API
+  const handleCalculateHealthScore = async () => {
+    // Build payload using only required nutrition keys.
+    const payload = {
+      nutrition: {
+        energy: (nutritionInfo.energy.value || "0") + nutritionInfo.energy.unit,
+        sugars: (nutritionInfo.sugars.value || "0") + nutritionInfo.sugars.unit,
+        sodium: (nutritionInfo.sodium.value || "0") + nutritionInfo.sodium.unit,
+        protein: (nutritionInfo.protein.value || "0") + nutritionInfo.protein.unit,
+        fiber: (nutritionInfo.fiber.value || "0") + nutritionInfo.fiber.unit,
+        // For fruitsVegetablesNuts, we pass only the value as shown in the sample.
+        fruitsVegetablesNuts: nutritionInfo.fruitsVegetablesNuts.value || "0",
+        saturatedFat: (nutritionInfo.saturatedFat.value || "0") + nutritionInfo.saturatedFat.unit
+      }
+    };
+
+    try {
+      const response = await fetch('https://calculatehealthscore-ujjjq2ceua-uc.a.run.app', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      // Update healthScore state with the returned score
+      setHealthScore(data.healthScore.toString());
+    } catch (error) {
+      console.error('Error calculating health score:', error);
+    }
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Upload image to Firebase Storage
+    // Upload image to Firebase Storage if provided
     let imageUrl = '';
     if (image) {
       const storageRef = ref(storage, `images/${image.name}`);
@@ -185,7 +219,7 @@ const ProductForm = () => {
       customFieldsData[field.name] = parseFieldValue(fieldValue, field.type);
     });
 
-    // Add custom fields to the nutritionInfo object
+    // Add custom nutrition fields to the nutrition info
     const customNutritionData = [];
     customNutritionFields.forEach((field) => {
       const fieldValue = document.getElementById(`nutrition-${field.name}`).value;
@@ -232,11 +266,11 @@ const ProductForm = () => {
     };
 
     try {
-      const docRef = await addDoc(collection(db, 'products'), productData);
+      await addDoc(collection(db, 'products'), productData);
       alert('Product added successfully!');
+      // Reset form states
       setBarcodes('');
       setName('');
-      setImageURL('');
       setIngredients('');
       setArtificialIngredients('');
       setNutritionInfo({
@@ -427,6 +461,12 @@ const ProductForm = () => {
             onChange={(e) => setHealthScore(e.target.value)}
           />
         </div>
+        {/* Button to calculate health score */}
+        <div className="form-group">
+          <button type="button" onClick={handleCalculateHealthScore}>
+            Calculate Health Score
+          </button>
+        </div>
 
         <h2 className="section-title">Custom Fields</h2>
         {customFields.map((field) => (
@@ -492,18 +532,6 @@ const ProductForm = () => {
       </form>
     </div>
   );
-};
-
-const buttonStyle = {
-  position: 'absolute',
-  top: '20px',
-  right: '20px',
-  padding: '10px 20px',
-  backgroundColor: '#4CAF50',
-  color: 'white',
-  border: 'none',
-  borderRadius: '5px',
-  textDecoration: 'none',
 };
 
 export default ProductForm;
