@@ -9,6 +9,7 @@ const ProductForm = () => {
   const [name, setName] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [artificialIngredients, setArtificialIngredients] = useState('');
+  const [allergens, setAllergens] = useState('');
   const [nutritionInfo, setNutritionInfo] = useState({
     energy: { value: '', unit: 'kcal' },
     protein: { value: '', unit: 'g' },
@@ -17,6 +18,7 @@ const ProductForm = () => {
     carbohydrates: { value: '', unit: 'g' },
     fiber: { value: '', unit: 'g' },
     sugars: { value: '', unit: 'g' },
+    addedSugars: { value: '', unit: 'g' },
     calcium: { value: '', unit: 'mg' },
     magnesium: { value: '', unit: 'mg' },
     iron: { value: '', unit: 'mg' },
@@ -65,6 +67,7 @@ const ProductForm = () => {
     carbohydrates: 'Carbohydrates',
     fiber: 'Fiber (Dietary Fiber)',
     sugars: 'Sugars',
+    addedSugars: 'Added Sugars',
     calcium: 'Calcium',
     magnesium: 'Magnesium',
     iron: 'Iron',
@@ -102,6 +105,7 @@ const ProductForm = () => {
     carbohydrates: ['g', 'mg', 'mcg'],
     fiber: ['g', 'mg', 'mcg'],
     sugars: ['g', 'mg', 'mcg'],
+    addedSugars: ['g', 'mg', 'mcg'],
     calcium: ['mg', 'g', 'mcg'],
     magnesium: ['mg', 'g', 'mcg'],
     iron: ['mg', 'g', 'mcg'],
@@ -267,6 +271,7 @@ const imageUrl = image;
       imageURL: imageUrl,
       ingredients: ingredients.split(';').map((ingredient) => ingredient.trim()),
       artificialIngredients: artificialIngredients.split(';').map((ingredient) => ingredient.trim()),
+      allergens: allergens.split(';').map((allergen) => allergen.trim()),
       nutritionInfo: allNutritionInfo,
       userRating: parseFloat(userRating) || 0,
       numberOfRatings: parseInt(numberOfRatings) || 0,
@@ -285,6 +290,7 @@ const imageUrl = image;
       setName('');
       setIngredients('');
       setArtificialIngredients('');
+      setAllergens('');
       setNutritionInfo({
         energy: { value: '', unit: 'kcal' },
         protein: { value: '', unit: 'g' },
@@ -293,6 +299,7 @@ const imageUrl = image;
         carbohydrates: { value: '', unit: 'g' },
         fiber: { value: '', unit: 'g' },
         sugars: { value: '', unit: 'g' },
+        addedSugars: { value: '', unit: 'g' },
         calcium: { value: '', unit: 'mg' },
         magnesium: { value: '', unit: 'mg' },
         iron: { value: '', unit: 'mg' },
@@ -378,6 +385,15 @@ const imageUrl = image;
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
             required
+          />
+        </div>
+        <div className="form-group">
+          <label>Allergens (semicolon separated)</label>
+          <input
+            type="text"
+            placeholder="e.g., Peanuts;Soy"
+            value={allergens}
+            onChange={(e) => setAllergens(e.target.value)}
           />
         </div>
         <div className="form-group">
