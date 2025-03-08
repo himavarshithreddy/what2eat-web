@@ -313,7 +313,12 @@ const imageUrl = image;
         vitaminB6: { value: '', unit: 'mg' },
         folate: { value: '', unit: 'mcg' },
         vitaminB12: { value: '', unit: 'mcg' },
-        fruitsVegetablesNuts: { value: '', unit: '%' }
+        fruitsVegetablesNuts: { value: '', unit: '%' },
+        monoUnsaturatedFattyAcids: { value: '', unit: 'g' },
+    polyUnsaturatedFattyAcids: { value: '', unit: 'g' },
+    unsaturatedFat: { value: '', unit: 'g' },
+    transFat: { value: '', unit: 'g' },
+    cholesterol: { value: '', unit: 'mg' }
       });
       setUserRating('');
       setNumberOfRatings('');
