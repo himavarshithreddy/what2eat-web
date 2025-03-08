@@ -37,7 +37,12 @@ const ProductForm = () => {
     vitaminB6: { value: '', unit: 'mg' },
     folate: { value: '', unit: 'mcg' },
     vitaminB12: { value: '', unit: 'mcg' },
-    fruitsVegetablesNuts: { value: '', unit: '%' }
+    fruitsVegetablesNuts: { value: '', unit: '%' },
+    monoUnsaturatedFattyAcids: { value: '', unit: 'g' },
+    polyUnsaturatedFattyAcids: { value: '', unit: 'g' },
+    unsaturatedFat: { value: '', unit: 'g' },
+    transFat: { value: '', unit: 'g' },
+    cholesterol: { value: '', unit: 'mg' }
   });
   const [userRating, setUserRating] = useState('');
   const [numberOfRatings, setNumberOfRatings] = useState('');
@@ -45,7 +50,7 @@ const ProductForm = () => {
   const [pros, setPros] = useState('');
   const [cons, setCons] = useState('');
   const [healthScore, setHealthScore] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
   const [customFields, setCustomFields] = useState([]);
   const [customFieldName, setCustomFieldName] = useState('');
   const [customFieldType, setCustomFieldType] = useState('');
@@ -80,7 +85,12 @@ const ProductForm = () => {
     vitaminB6: 'Vitamin B6',
     folate: 'Folate (Vitamin B9)',
     vitaminB12: 'Vitamin B12',
-    fruitsVegetablesNuts: 'Fruits, Vegetables, Nuts (Percentage)'
+    fruitsVegetablesNuts: 'Fruits, Vegetables, Nuts (Percentage)',
+    monoUnsaturatedFattyAcids: 'Mono Unsaturated Fatty Acids',
+    polyUnsaturatedFattyAcids: 'Poly Unsaturated Fatty Acids',
+    unsaturatedFat: 'Unsaturated Fat',
+    transFat: 'Trans Fat',
+    cholesterol: 'Cholesterol'
   };
 
   // Unit options for each nutrient
@@ -112,7 +122,12 @@ const ProductForm = () => {
     vitaminB6: ['mg', 'mcg', 'g'],
     folate: ['mcg', 'mg', 'g'],
     vitaminB12: ['mcg', 'mg', 'g'],
-    fruitsVegetablesNuts: ['%', 'mcg', 'mg', 'g']
+    fruitsVegetablesNuts: ['%', 'mcg', 'mg', 'g'],
+    monoUnsaturatedFattyAcids: ['g', 'mg','mcg'],
+    polyUnsaturatedFattyAcids: ['g', 'mg','mcg'],
+    unsaturatedFat: ['g', 'mg','mcg'],
+    transFat: ['g', 'mg','mcg'],
+    cholesterol: ['mg', 'g','mcg']
   };
 
   // Handle image upload
@@ -202,12 +217,9 @@ const ProductForm = () => {
     e.preventDefault();
 
     // Upload image to Firebase Storage if provided
-    let imageUrl = '';
-    if (image) {
-      const storageRef = ref(storage, `images/${image.name}`);
-      await uploadBytes(storageRef, image);
-      imageUrl = await getDownloadURL(storageRef);
-    }
+   // Use the pasted image URL directly
+const imageUrl = image;
+
 
     // Parse barcodes into an array
     const parsedBarcodes = barcodes.split(';').map((barcode) => barcode.trim()).filter(Boolean);
@@ -345,12 +357,13 @@ const ProductForm = () => {
           />
         </div>
         <div className="form-group">
-          <label>Product Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
+        <label>Product Image URL</label>
+  <input
+    type="text"
+    placeholder="Paste image URL here"
+    value={image}
+    onChange={(e) => setImage(e.target.value)}
+  />
         </div>
         <div className="form-group">
           <label>Ingredients (semicolon separated)</label>
