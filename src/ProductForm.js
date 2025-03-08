@@ -321,7 +321,7 @@ const imageUrl = image;
       setPros('');
       setCons('');
       setHealthScore('');
-      setImage(null);
+      setImage('');
       setCustomFields([]);
       setCustomNutritionFields([]);
     } catch (error) {
