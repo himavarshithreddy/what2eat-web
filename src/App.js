@@ -8,6 +8,8 @@ import Json from './Json';
 import UpdateBarcodes from './updatefiled';
 import DownloadCollection from './download';
 import ProductProcessor from './updatehealthscore';
+import PrivacyPolicy from './privacy-policy';
+import TermsandConditions from './terms-conditions';
 import './App.css';
 const App = () => {
   return (
@@ -19,6 +21,8 @@ const App = () => {
         <Route path="/update" element={<UpdateBarcodes />} />
         <Route path="/download" element={<DownloadCollection />} />
         <Route path="/updatehealthscore" element={<ProductProcessor />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-conditions" element={<TermsandConditions />} />
       </Routes>
     </Router>
   );

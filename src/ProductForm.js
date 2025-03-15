@@ -57,7 +57,23 @@ const ProductForm = () => {
   const [customFieldName, setCustomFieldName] = useState('');
   const [customFieldType, setCustomFieldType] = useState('');
   const [customNutritionFields, setCustomNutritionFields] = useState([]);
+// Function to generate search keywords from the product name
+const generateSearchKeywords = (name) => {
+  const nameLower = name.toLowerCase();
+  const keywords = new Set();
 
+  keywords.add(nameLower); // Full name
+  const words = nameLower.split(' ').filter(Boolean);
+
+  words.forEach((word) => {
+    keywords.add(word); // Full word
+    for (let i = 1; i <= word.length; i++) {
+      keywords.add(word.slice(0, i)); // Prefixes
+    }
+  });
+
+  return Array.from(keywords);
+};
   // Nutrient aliases for placeholders
   const nutrientAliases = {
     energy: 'Energy (Calories)',
@@ -227,7 +243,7 @@ const imageUrl = image;
 
     // Parse barcodes into an array
     const parsedBarcodes = barcodes.split(';').map((barcode) => barcode.trim()).filter(Boolean);
-
+    const searchKeywords = generateSearchKeywords(name);
     // Add custom fields to the product object
     const customFieldsData = {};
     customFields.forEach((field) => {
@@ -279,6 +295,7 @@ const imageUrl = image;
       pros: pros.split(';').map((pro) => pro.trim()),
       cons: cons.split(';').map((con) => con.trim()),
       healthScore: parseInt(healthScore) || 0,
+      searchKeywords,
       ...customFieldsData
     };
 
