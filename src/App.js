@@ -9,7 +9,7 @@ import UpdateBarcodes from './updatefiled';
 import DownloadCollection from './download';
 import ProductProcessor from './updatehealthscore';
 import PrivacyPolicy from './privacy-policy';
-import TermsandConditions from './terms-conditions';
+import TermsAndConditions from './terms-conditions';
 import './App.css';
 const App = () => {
   return (
@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/download" element={<DownloadCollection />} />
         <Route path="/updatehealthscore" element={<ProductProcessor />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-conditions" element={<TermsandConditions />} />
+        <Route path="/terms-conditions" element={<TermsAndConditions />} />
       </Routes>
     </Router>
   );
