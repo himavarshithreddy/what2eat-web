@@ -52,7 +52,7 @@ const ProductForm = () => {
   const [pros, setPros] = useState('');
   const [cons, setCons] = useState('');
   const [healthScore, setHealthScore] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
   const [customFields, setCustomFields] = useState([]);
   const [customFieldName, setCustomFieldName] = useState('');
   const [customFieldType, setCustomFieldType] = useState('');
@@ -196,7 +196,13 @@ const generateSearchKeywords = (name) => {
         return value;
     }
   };
-
+  const uploadImageAndGetUrl = async () => {
+    if (!image) return '';
+    const imageRef = ref(storage, `products/${Date.now()}-${image.name}`);
+    await uploadBytes(imageRef, image);
+    return await getDownloadURL(imageRef);
+  };
+  
   // Function to calculate health score via external API
   const handleCalculateHealthScore = async () => {
     // Build payload using only required nutrition keys.
@@ -238,7 +244,7 @@ const generateSearchKeywords = (name) => {
 
     // Upload image to Firebase Storage if provided
    // Use the pasted image URL directly
-const imageUrl = image;
+   const imageUrl = await uploadImageAndGetUrl();
 
 
     // Parse barcodes into an array
@@ -386,14 +392,13 @@ const imageUrl = image;
           />
         </div>
         <div className="form-group">
-        <label>Product Image URL</label>
-  <input
-    type="text"
-    placeholder="Paste image URL here"
-    value={image}
-    onChange={(e) => setImage(e.target.value)}
+   <label>Product Image</label>
+   <input
+    type="file"
+    accept="image/*"
+    onChange={(e) => setImage(e.target.files[0])}
   />
-        </div>
+ </div>
         <div className="form-group">
           <label>Ingredients (semicolon separated)</label>
           <input
