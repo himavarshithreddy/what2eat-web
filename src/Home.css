@@ -1,0 +1,201 @@
+/* Home.css - Orange Theme for What2Eat - Desktop-Optimized */
+
+:root {
+    --primary-orange: #ff7a00;
+    --secondary-orange: #ff9a3d;
+    --light-orange: #ffebda;
+    --dark-orange: #e65c00;
+    --text-dark: #333333;
+    --text-light: #ffffff;
+    --background-light: #fffaf5;
+    --gray-light: #f5f5f5;
+    --gray-medium: #e0e0e0;
+    --transition-speed: 0.3s;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+  }
+  
+  .home-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Hero Section */
+  .home-hero {
+    text-align: center;
+    padding: 100px 5%;
+    background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+    margin-bottom: 60px;
+    box-shadow: 0 5px 15px rgba(255, 122, 0, 0.2);
+    width: 100%;
+  }
+  
+  .home-title {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    color: var(--text-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .home-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: var(--text-light);
+    opacity: 0.9;
+  }
+  
+  .hero-cta {
+    display: inline-block;
+    background-color: var(--text-light);
+    color: var(--primary-orange);
+    padding: 18px 40px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all var(--transition-speed);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .hero-cta:hover {
+    background-color: var(--dark-orange);
+    color: var(--text-light);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Features Section */
+  .home-features {
+    padding: 40px 5% 80px;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  
+  .features-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--primary-orange);
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  .feature-card {
+    background-color: var(--text-light);
+    border-radius: 15px;
+    padding: 30px;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: all var(--transition-speed);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    border-bottom: 4px solid transparent;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(255, 122, 0, 0.15);
+    border-bottom: 4px solid var(--primary-orange);
+  }
+  
+  .feature-card h3 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--primary-orange);
+  }
+  
+  .feature-card p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    color: var(--text-dark);
+    opacity: 0.8;
+  }
+  
+  /* Footer */
+  .home-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 5%;
+    border-top: 1px solid var(--gray-medium);
+    margin-top: 40px;
+    background-color: var(--gray-light);
+    width: 100%;
+  }
+  
+  .home-footer p {
+    margin: 0;
+    color: var(--text-dark);
+    opacity: 0.7;
+    font-size: 1.1rem;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .footer-links a {
+    color: var(--primary-orange);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+    font-size: 1.1rem;
+  }
+  
+  .footer-links a:hover {
+    color: var(--dark-orange);
+    text-decoration: underline;
+  }
+  
+  /* Responsive adjustments - only for smaller screens */
+  @media (max-width: 1200px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .home-title {
+      font-size: 2.5rem;
+    }
+    
+    .home-subtitle {
+      font-size: 1.2rem;
+    }
+    
+    .home-hero {
+      padding: 60px 20px;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .home-footer {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .footer-links {
+      margin-top: 15px;
+    }
+    
+    .home-wrapper {
+      padding: 0;
+    }
+  }

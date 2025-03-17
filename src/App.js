@@ -10,12 +10,14 @@ import DownloadCollection from './download';
 import ProductProcessor from './updatehealthscore';
 import PrivacyPolicy from './privacy-policy';
 import TermsAndConditions from './terms-conditions';
+import Home from './Home'
 import './App.css';
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ProductForm />} />
+      <Route path="/" element={<Home />} />
+        <Route path="/product-form" element={<ProductForm />} />
         <Route path="/health-score" element={<HealthScore />} />
         <Route path="/json" element={<Json />} />
         <Route path="/update" element={<UpdateBarcodes />} />

@@ -7,6 +7,7 @@ import './ProductForm.css'; // We'll create this CSS file
 const ProductForm = () => {
   const [barcodes, setBarcodes] = useState('');
   const [name, setName] = useState('');
+  const [isBeverage, setIsBeverage] = useState(0); // 0 for food, 1 for beverage
   const [ingredients, setIngredients] = useState('');
   const [artificialIngredients, setArtificialIngredients] = useState('');
   const [allergens, setAllergens] = useState('');
@@ -213,10 +214,10 @@ const generateSearchKeywords = (name) => {
         sodium: (nutritionInfo.sodium.value || "0") + nutritionInfo.sodium.unit,
         protein: (nutritionInfo.protein.value || "0") + nutritionInfo.protein.unit,
         fiber: (nutritionInfo.fiber.value || "0") + nutritionInfo.fiber.unit,
-        // For fruitsVegetablesNuts, we pass only the value as shown in the sample.
         fruitsVegetablesNuts: nutritionInfo.fruitsVegetablesNuts.value || "0",
         saturatedFat: (nutritionInfo.saturatedFat.value || "0") + nutritionInfo.saturatedFat.unit
-      }
+      },
+      isBeverage: isBeverage // Include the isBeverage field
     };
 
     try {
@@ -301,6 +302,7 @@ const generateSearchKeywords = (name) => {
       pros: pros.split(';').map((pro) => pro.trim()),
       cons: cons.split(';').map((con) => con.trim()),
       healthScore: parseInt(healthScore) || 0,
+      isBeverage: isBeverage,
       searchKeywords,
       ...customFieldsData
     };
@@ -357,6 +359,7 @@ const generateSearchKeywords = (name) => {
       setCons('');
       setHealthScore('');
       setImage('');
+      setIsBeverage(0);
       setCustomFields([]);
       setCustomNutritionFields([]);
     } catch (error) {
@@ -490,6 +493,16 @@ const generateSearchKeywords = (name) => {
             onChange={(e) => setCategoryId(e.target.value)}
           />
         </div>
+        <div className="form-group">
+  <label>Is this a Beverage?</label>
+        <select
+  value={isBeverage}
+  onChange={(e) => setIsBeverage(parseInt(e.target.value))}
+>
+  <option value={0}>No (Food)</option>
+  <option value={1}>Yes (Beverage)</option>
+</select>
+</div>
         <div className="form-group">
           <label>Pros (semicolon separated)</label>
           <input
