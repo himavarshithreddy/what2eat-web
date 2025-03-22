@@ -5,7 +5,7 @@ import { db } from './firebase'; // Adjust the import path as needed
 
 // Configure these as needed
 const FUNCTION_URL = 'https://calculatehealthscore-ujjjq2ceua-uc.a.run.app'; // Your cloud function URL
-const PROCESSING_DELAY = 2000; // Delay between each call in milliseconds (2 seconds)
+const PROCESSING_DELAY = 10000; // Delay between each call in milliseconds (10 seconds)
 
 const ProductProcessor = () => {
   const [productIds, setProductIds] = useState([]);
@@ -14,9 +14,24 @@ const ProductProcessor = () => {
   const [processing, setProcessing] = useState(false);
   const [successCount, setSuccessCount] = useState(0);
   const [isStarted, setIsStarted] = useState(false); // Track if processing has started
+  const [countdown, setCountdown] = useState(0);
 
-  // Utility function to create a delay
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  // Custom delay function with countdown timer update
+  const customDelay = (ms) => {
+    const totalSeconds = ms / 1000;
+    return new Promise((resolve) => {
+      let secondsLeft = totalSeconds;
+      setCountdown(secondsLeft);
+      const interval = setInterval(() => {
+        secondsLeft -= 1;
+        setCountdown(secondsLeft);
+        if (secondsLeft <= 0) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 1000);
+    });
+  };
 
   // Fetch product IDs and data from Firestore
   useEffect(() => {
@@ -54,6 +69,7 @@ const ProductProcessor = () => {
         try {
           // Prepare nutrition data from Firestore
           const nutrition = data.nutritionInfo.reduce((acc, nutrient) => {
+            // Adjust field access if needed (e.g., normalized field names)
             acc[nutrient.name.replace(/ /g, '')] = nutrient.value + (nutrient.unit || '');
             return acc;
           }, {});
@@ -69,7 +85,7 @@ const ProductProcessor = () => {
             nutrition: {
               energy: nutrition.energy || '0kcal',
               sugars: nutrition.sugars || '0g',
-              saturatedFat: nutrition.saturatedFat || '0g',
+              saturatedFat: nutrition.saturatedfat || '0g', // Adjust according to your DB field
               sodium: nutrition.sodium || '0mg',
               fiber: nutrition.fiber || '0g',
               protein: nutrition.protein || '0g',
@@ -122,10 +138,11 @@ const ProductProcessor = () => {
           ]);
         }
 
-        // Wait for the specified delay before processing the next product
-        await delay(PROCESSING_DELAY);
+        // Wait for the specified delay with a countdown timer update before processing the next product
+        await customDelay(PROCESSING_DELAY);
       }
       setProcessing(false);
+      setCountdown(0);
     };
 
     processProducts();
@@ -141,7 +158,12 @@ const ProductProcessor = () => {
           Start Processing
         </button>
       )}
-      {processing && <p>Processing products... Please wait.</p>}
+      {processing && (
+        <div>
+          <p>Processing products... Please wait.</p>
+          <p>Next update in: {countdown} second{countdown === 1 ? '' : 's'}</p>
+        </div>
+      )}
       <div>
         {results.length > 0 && (
           <div>
